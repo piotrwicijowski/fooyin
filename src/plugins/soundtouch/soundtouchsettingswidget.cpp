@@ -142,6 +142,43 @@ SliderConfig sliderConfig(const Fooyin::SoundTouchDsp::Parameter parameter)
 
     return {.min = TempoMin, .max = TempoMax, .step = 0.01, .suffix = QStringLiteral("x")};
 }
+
+Fooyin::DspNumericControlInfo numericControlInfo(const Fooyin::SoundTouchDsp::Parameter parameter)
+{
+    const auto config = sliderConfig(parameter);
+    return {
+        .minValue = config.min,
+        .maxValue = config.max,
+        .step     = config.step,
+        .decimals = config.step < 0.1 ? 2 : 1,
+        .suffix   = config.suffix,
+    };
+}
+
+std::optional<double> numericValue(const Fooyin::SoundTouchDsp::Parameter parameter, const QByteArray& settings)
+{
+    auto dsp = createDsp(parameter);
+    if(!dsp) {
+        return std::nullopt;
+    }
+
+    if(!settings.isEmpty() && !dsp->loadSettings(settings)) {
+        return std::nullopt;
+    }
+
+    return dsp->parameterValue();
+}
+
+QByteArray settingsWithNumericValue(const Fooyin::SoundTouchDsp::Parameter parameter, const double value)
+{
+    auto dsp = createDsp(parameter);
+    if(!dsp) {
+        return {};
+    }
+
+    dsp->setParameterValue(value);
+    return dsp->saveSettings();
+}
 } // namespace
 
 namespace Fooyin::SoundTouch {
@@ -372,6 +409,21 @@ DspLayoutEditor* SoundTouchTempoSettingsProvider::createLayoutEditor(QWidget* pa
 DspSettingsDialog* SoundTouchTempoSettingsProvider::createSettingsWidget(QWidget* parent)
 {
     return new SoundTouchSettingsWidget(SoundTouchDsp::Parameter::Tempo, parent);
+}
+
+DspNumericControlInfo SoundTouchTempoSettingsProvider::numericControlInfo() const
+{
+    return ::numericControlInfo(SoundTouchDsp::Parameter::Tempo);
+}
+
+std::optional<double> SoundTouchTempoSettingsProvider::numericValue(const QByteArray& settings) const
+{
+    return ::numericValue(SoundTouchDsp::Parameter::Tempo, settings);
+}
+
+QByteArray SoundTouchTempoSettingsProvider::settingsWithNumericValue(const double value) const
+{
+    return ::settingsWithNumericValue(SoundTouchDsp::Parameter::Tempo, value);
 }
 
 QString SoundTouchPitchSettingsProvider::id() const

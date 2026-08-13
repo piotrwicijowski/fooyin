@@ -22,6 +22,7 @@
 #include "soundtouchdsp.h"
 
 #include <gui/dsp/dsplayouteditor.h>
+#include <gui/dsp/dspnumericcontrol.h>
 #include <gui/dsp/dspsettingsprovider.h>
 
 #include <QBasicTimer>
@@ -93,7 +94,8 @@ private:
     QBasicTimer m_previewTimer;
 };
 
-class SoundTouchTempoSettingsProvider : public DspSettingsProvider
+class SoundTouchTempoSettingsProvider : public DspSettingsProvider,
+                                        public DspNumericSettingsProvider
 {
 public:
     [[nodiscard]] QString id() const override;
@@ -101,6 +103,10 @@ public:
     [[nodiscard]] bool showAsLayoutWidget() const override;
     [[nodiscard]] DspLayoutEditor* createLayoutEditor(QWidget* parent) override;
     DspSettingsDialog* createSettingsWidget(QWidget* parent) override;
+
+    [[nodiscard]] DspNumericControlInfo numericControlInfo() const override;
+    [[nodiscard]] std::optional<double> numericValue(const QByteArray& settings) const override;
+    [[nodiscard]] QByteArray settingsWithNumericValue(double value) const override;
 };
 
 class SoundTouchPitchSettingsProvider : public DspSettingsProvider

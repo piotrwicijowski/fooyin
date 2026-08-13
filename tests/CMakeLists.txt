@@ -67,6 +67,11 @@ fooyin_add_test(test_ratingtagpolicy core/tagging/ratingtagpolicytest.cpp)
 fooyin_add_test(test_tagwriter core/tagging/tagwritertest.cpp data/audio.qrc)
 
 fooyin_add_test(test_guiutils gui/guiutilstest.cpp)
+fooyin_add_test(test_dspnumericcontrolservice
+                gui/dspnumericcontrolservicetest.cpp
+                ${CMAKE_SOURCE_DIR}/src/gui/dsp/dspnumericcontrolservice.cpp
+                ${CMAKE_SOURCE_DIR}/src/gui/dsp/dspsettingsregistry.cpp)
+target_include_directories(test_dspnumericcontrolservice PRIVATE ${CMAKE_SOURCE_DIR}/src/gui)
 fooyin_add_test(test_scriptformatter gui/scriptformattertest.cpp)
 fooyin_add_test(test_scriptreferenceentries gui/scriptreferenceentriestest.cpp)
 
@@ -83,3 +88,14 @@ fooyin_add_test(test_tagfillpattern plugins/tageditor/tagfillpatterntest.cpp
 
 fooyin_add_test(test_lyricsparser plugins/lyrics/lyricsparsertest.cpp ${CMAKE_SOURCE_DIR}/src/plugins/lyrics/lyricsparser.cpp)
 target_include_directories(test_lyricsparser PRIVATE ${CMAKE_SOURCE_DIR}/src/plugins/lyrics)
+
+if(TARGET SoundTouch::SoundTouch)
+    fooyin_add_test(
+            test_soundtouchnumericcontrol
+            plugins/soundtouch/soundtouchnumericcontroltest.cpp
+            ${CMAKE_SOURCE_DIR}/src/plugins/soundtouch/soundtouchdsp.cpp
+            ${CMAKE_SOURCE_DIR}/src/plugins/soundtouch/soundtouchsettingswidget.cpp
+    )
+    target_include_directories(test_soundtouchnumericcontrol PRIVATE ${CMAKE_SOURCE_DIR}/src/plugins/soundtouch)
+    target_link_libraries(test_soundtouchnumericcontrol PRIVATE SoundTouch::SoundTouch)
+endif()

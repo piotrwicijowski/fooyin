@@ -26,6 +26,7 @@ class ActionManager;
 class AdvancedSettingsRegistry;
 class CoverRepository;
 class CurrentPlaylistController;
+class DspNumericControlService;
 class EditableLayout;
 class LayoutProvider;
 class PlaylistViewRefresher;
@@ -47,10 +48,10 @@ struct FYGUI_EXPORT GuiPluginContext
                      TrackSelectionController* trackSelection_, SearchController* searchController_,
                      CurrentPlaylistController* playlistSelection_, PlaylistViewRefresher* playlistViewRefresher_,
                      PropertiesDialog* propertiesDialog_, ScriptCommandHandler* scriptCommandHandler_,
-                     ScriptVariableRegistry* scriptVariableRegistry_, WidgetProvider* widgetProvider_,
-                     EditableLayout* editableLayout_, WindowController* windowController_,
-                     ThemeRegistry* themeRegistry_, AdvancedSettingsRegistry* advancedSettingsRegistry_,
-                     CoverRepository* coverRepository_)
+                     ScriptVariableRegistry* scriptVariableRegistry_, DspNumericControlService* dspNumericControl_,
+                     WidgetProvider* widgetProvider_, EditableLayout* editableLayout_,
+                     WindowController* windowController_, ThemeRegistry* themeRegistry_,
+                     AdvancedSettingsRegistry* advancedSettingsRegistry_, CoverRepository* coverRepository_)
         : actionManager{actionManager_}
         , layoutProvider{layoutProvider_}
         , trackSelection{trackSelection_}
@@ -60,6 +61,7 @@ struct FYGUI_EXPORT GuiPluginContext
         , propertiesDialog{propertiesDialog_}
         , scriptCommandHandler{scriptCommandHandler_}
         , scriptVariableRegistry{scriptVariableRegistry_}
+        , dspNumericControl{dspNumericControl_}
         , widgetProvider{widgetProvider_}
         , editableLayout{editableLayout_}
         , windowController{windowController_}
@@ -77,6 +79,7 @@ struct FYGUI_EXPORT GuiPluginContext
     PropertiesDialog* propertiesDialog;
     ScriptCommandHandler* scriptCommandHandler;
     ScriptVariableRegistry* scriptVariableRegistry;
+    DspNumericControlService* dspNumericControl;
     WidgetProvider* widgetProvider;
     EditableLayout* editableLayout;
     WindowController* windowController;

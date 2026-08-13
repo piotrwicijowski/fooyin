@@ -333,6 +333,7 @@ GuiApplicationPrivate::GuiApplicationPrivate(GuiApplication* self_, Application*
                          m_propertiesDialog,
                          m_scriptCommandHandler.get(),
                          &m_scriptVariableRegistry,
+                         nullptr,
                          &m_widgetProvider,
                          m_editableLayout.get(),
                          m_windowController,
@@ -344,6 +345,7 @@ GuiApplicationPrivate::GuiApplicationPrivate(GuiApplication* self_, Application*
     , m_coverProvider{m_coverRepository}
 {
     m_scriptParser.addProvider(playlistVariableProvider());
+    m_guiPluginContext.dspNumericControl = m_widgets->dspNumericControl();
 }
 
 void GuiApplicationPrivate::initialise()

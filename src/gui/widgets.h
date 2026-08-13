@@ -22,6 +22,8 @@
 #include "dsp/dspsettingsregistry.h"
 #include "pluginsettingsregistry.h"
 
+#include <gui/dsp/dspnumericcontrol.h>
+
 #include <core/track.h>
 
 #include <QObject>
@@ -66,6 +68,7 @@ public:
     void registerDspWidgets();
     void registerPropertiesTabs();
     void registerFontEntries() const;
+    [[nodiscard]] DspNumericControlService* dspNumericControl() const;
     [[nodiscard]] DspSettingsRegistry* dspSettingsRegistry() const;
     [[nodiscard]] DspSettingsController* dspSettingsController() const;
     [[nodiscard]] PluginSettingsRegistry* pluginSettingsRegistry() const;
@@ -93,6 +96,7 @@ private:
     OutputProfileManager* m_outputProfileManager;
     NowPlayingOutputService* m_nowPlayingOutputService;
     std::unique_ptr<DspSettingsRegistry> m_dspSettingsRegistry;
+    std::unique_ptr<DspNumericControlService> m_dspNumericControl;
     std::unique_ptr<DspSettingsController> m_dspSettingsController;
     std::unique_ptr<PluginSettingsRegistry> m_pluginSettingsRegistry;
     ScriptCommandHandler* m_scriptCommandHandler;

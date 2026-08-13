@@ -4,6 +4,7 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/include/gui/coverrepository.h
     ${CMAKE_SOURCE_DIR}/include/gui/configdialog.h
     ${CMAKE_SOURCE_DIR}/include/gui/contextmenuutils.h
+    ${CMAKE_SOURCE_DIR}/include/gui/dsp/dspnumericcontrol.h
     ${CMAKE_SOURCE_DIR}/include/gui/dsp/dsplayouteditor.h
     ${CMAKE_SOURCE_DIR}/include/gui/dsp/dspsettingsdialog.h
     ${CMAKE_SOURCE_DIR}/include/gui/dsp/dspsettingsprovider.h
@@ -142,6 +143,8 @@ set(SOURCES
     dirbrowser/dirtree.h
     dsp/dsppreset.cpp
     dsp/dsppreset.h
+    dsp/dspnumericcontrolservice.cpp
+    dsp/dspnumericcontrolservice.h
     dsp/dsppresetregistry.cpp
     dsp/dsppresetregistry.h
     dsp/dsplayouteditor.cpp

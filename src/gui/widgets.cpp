@@ -30,6 +30,7 @@
 #include "controls/seekbar.h"
 #include "controls/volumecontrol.h"
 #include "dirbrowser/dirbrowser.h"
+#include "dsp/dspnumericcontrolservice.h"
 #include "dsp/dsppresetregistry.h"
 #include "dsp/dspsettingscontroller.h"
 #include "dsp/dspsettingsregistry.h"
@@ -147,6 +148,8 @@ Widgets::Widgets(Application* core, GuiApplication* gui, const GuiPluginContext&
                                                       m_settings, this)}
     , m_nowPlayingOutputService{new NowPlayingOutputService(m_core->playerController(), m_settings, this)}
     , m_dspSettingsRegistry{std::make_unique<DspSettingsRegistry>()}
+    , m_dspNumericControl{std::make_unique<DspNumericControlServiceImpl>(m_core->dspChainStore(),
+                                                                         m_dspSettingsRegistry.get())}
     , m_dspSettingsController{std::make_unique<DspSettingsController>(m_core->dspChainStore(),
                                                                       m_dspSettingsRegistry.get(), this)}
     , m_pluginSettingsRegistry{std::make_unique<PluginSettingsRegistry>()}
@@ -156,6 +159,11 @@ Widgets::Widgets(Application* core, GuiApplication* gui, const GuiPluginContext&
 }
 
 Widgets::~Widgets() = default;
+
+DspNumericControlService* Widgets::dspNumericControl() const
+{
+    return m_dspNumericControl.get();
+}
 
 void Widgets::registerWidgets()
 {
